@@ -1,5 +1,5 @@
 ﻿using System.Text.Json; // FIX: Needed to save the object structure (Text + Checkbox)
-
+////// just a comment line to test
 namespace SNotes.Model
 {
     internal class ToDo
@@ -29,6 +29,11 @@ namespace SNotes.Model
             IsDone = false;
         }
 
+
+
+
+        //just a comment line to test
+        //to see if changes are detected
         // --- METHODS ---
 
         // Saving logic: Converts this C# Object -> JSON String -> File
