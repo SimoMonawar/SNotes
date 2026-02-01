@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="SNotes.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:View="clr-namespace:SNotes.View"
+    Title="SNotes">
+    
+    
+    
+    <FlyoutItem Title="Notes" >
+        <ShellContent
+                     Title="Notes"
+                     ContentTemplate="{DataTemplate View:AllNotesPage}"
+                     Route="AllNotePage"  />
+       
+    </FlyoutItem>
+    <FlyoutItem Title="To-Do-List">
+        <ShellContent
+              Title="To-Do List"
+              ContentTemplate="{DataTemplate View:AllToDoList}"
+              Route="AllToDoList"  />
+
+    </FlyoutItem>
+  
+
+</Shell>

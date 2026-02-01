@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:SNotes.ViewModel"
+             x:Class="SNotes.View.AllToDoList"
+             Title="ToDoList">
+
+    <ContentPage.BindingContext>
+        <viewModels:AllToDoListViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="ADD" 
+                     Command="{Binding NewToDoCommand}" 
+                     IconImageSource="{FontImageSource Glyph='+', Color={AppThemeBinding Light=Black, Dark=White}, Size=22}"/>
+    </ContentPage.ToolbarItems>
+
+    <CollectionView x:Name="toDoCollection"
+                    ItemsSource="{Binding AllToDoList}"
+                    Margin="10">
+
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+        </CollectionView.ItemsLayout>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+
+                <SwipeView Threshold="100">
+
+                    <SwipeView.LeftItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItemView Command="{Binding DeleteToDoCommand}">
+                                <Grid WidthRequest="70" BackgroundColor="#FF3B30">
+                                    <Image Source="{FontImageSource Glyph='🗑', Size=24, Color=White}"
+                                           HorizontalOptions="Center" 
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </SwipeItemView>
+                        </SwipeItems>
+                    </SwipeView.LeftItems>
+
+                    <Grid Padding="10" BackgroundColor="Transparent">
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EditToDoCommand}"/>
+                        </Grid.GestureRecognizers>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" 
+                               Text="{Binding ToDoDescription}" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               VerticalOptions="Center">
+
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding IsDone}" Value="True">
+                                    <Setter Property="TextDecorations" Value="Strikethrough" />
+                                    <Setter Property="Opacity" Value="0.6" />
+                                    <Setter Property="TextColor" Value="Gray" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <CheckBox Grid.Column="1" 
+                                  IsChecked="{Binding IsDone}" 
+                                  VerticalOptions="Center"/>
+
+                    </Grid>
+                </SwipeView>
+
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</ContentPage>
